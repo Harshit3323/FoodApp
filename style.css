@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Sora:wght@100..800&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+.Logo {
+  width: 100px;
+  height: 150px;
+}
+.Logo > img {
+  width: inherit;
+  height: inherit;
+}
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+  padding: 0 20px 0 40px;
+}
+
+.NavBar {
+  display: flex;
+  gap: 100px;
+  padding-right: 80px;
+}
+
+.NavBar > ul {
+  list-style: none;
+  display: flex;
+  gap: 70px;
+}
