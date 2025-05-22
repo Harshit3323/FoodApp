@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
+import Body from "./src/Body.js";
 
 // app layout = {
 //     navbar = {
@@ -22,7 +23,12 @@ import Header from "./src/Header.js";
 //      }
 // }
 const Hello = () => {
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <Body />
+    </>
+  );
 };
 
 ReactDom.createRoot(document.getElementById("root")).render(<Hello />);
