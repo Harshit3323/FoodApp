@@ -1775,6 +1775,4 @@ const restaurant = [
   },
 ];
 
-console.log(restaurant[0].info.name);
-
 export default restaurant;

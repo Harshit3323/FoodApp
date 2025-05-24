@@ -2,6 +2,7 @@ import React from "react";
 import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
 import Body from "./src/Body.js";
+import RestaurantData from "./src/data.js";
 
 // app layout = {
 //     navbar = {
@@ -22,13 +23,19 @@ import Body from "./src/Body.js";
 //          tbc
 //      }
 // }
-const Hello = () => {
+var count = 0;
+const App = () => {
   return (
     <>
       <Header />
-      <Body />
+      <div className="body">
+        {RestaurantData.map((data) => {
+          return <Body props={data.info} key={data.info.id} />;
+        })}
+      </div>
     </>
   );
 };
+console.log(count);
 
-ReactDom.createRoot(document.getElementById("root")).render(<Hello />);
+ReactDom.createRoot(document.getElementById("root")).render(<App />);
