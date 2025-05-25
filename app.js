@@ -29,8 +29,8 @@ const App = () => {
     <>
       <Header />
       <div className="body">
-        {RestaurantData.map((data) => {
-          return <Body props={data.info} key={data.info.id} />;
+        {RestaurantData.slice(0, 16).map((data) => {
+          return <Body props={data.info} key={data.info.id} role="link" />;
         })}
       </div>
     </>

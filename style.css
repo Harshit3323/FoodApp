@@ -17,12 +17,12 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: large;
-  padding: 0 20px 0 40px;
+  padding: 20px 20px 0 40px;
 }
 
 .NavBar {
   display: flex;
-  gap: 100px;
+  gap: 120px;
   padding-right: 80px;
 }
 
@@ -31,6 +31,9 @@ body {
   display: flex;
   gap: 70px;
 }
+.Nav-Links > li {
+  cursor: pointer;
+}
 .restaurant-card {
   width: 250px;
   height: 300px;
@@ -38,8 +41,8 @@ body {
   flex: 1 0 30%;
   border-radius: 20px;
   display: flex;
+  cursor: pointer;
   flex-direction: column;
-  border: 1px solid black;
 }
 .card-footer > p {
   font-size: smaller;
@@ -61,6 +64,12 @@ body {
 }
 
 .body {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 250px));
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
   flex-wrap: wrap;
+  gap: 30px;
+  padding: 5em 0;
 }
