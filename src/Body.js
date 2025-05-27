@@ -1,22 +1,15 @@
-import { ImageLink } from "./config";
-import { RestaurantData } from "./src/config.js";
+import RestaurantCard from "./RestrauntCard.js";
+import { RestaurantData } from "./config.js";
 
-const Body = ({ props }) => {
+const Body = () => {
+  console.log("lalalala");
   return (
-    <div className="restaurant-card">
-      <img src={ImageLink + props?.cloudinaryImageId} alt="" />
-      <div className="card-body">
-        <h3>{props?.name}</h3>
-        <p>{props?.avgRating}</p>
-      </div>
-      <div className="card-footer">
-        <p>
-          {props?.cuisines[0].length > 2
-            ? props?.cuisines.slice(0, 2).join(", ") + "..."
-            : props?.cuisines.join(", ")}
-        </p>
-        <p>{props?.costForTwo}</p>
-      </div>
+    <div className="body">
+      {RestaurantData.slice(0, 16).map((data) => {
+        return (
+          <RestaurantCard props={data.info} key={data.info.id} role="link" />
+        );
+      })}
     </div>
   );
 };
