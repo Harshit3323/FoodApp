@@ -2,7 +2,7 @@ import React from "react";
 import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
 import Body from "./src/Body.js";
-import { RestaurantData } from "./src/data.js";
+import { RestaurantData } from "./src/config.js";
 
 // app layout = {
 //     navbar = {

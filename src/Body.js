@@ -1,5 +1,5 @@
-const ImageLink =
-  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+import { ImageLink } from "./config";
+import { RestaurantData } from "./src/config.js";
 
 const Body = ({ props }) => {
   return (
