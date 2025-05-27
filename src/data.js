@@ -1,5 +1,5 @@
 // https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/
-const restaurant = [
+export const RestaurantData = [
   {
     info: {
       id: "426776",
@@ -1774,5 +1774,3 @@ const restaurant = [
     },
   },
 ];
-
-export default restaurant;
