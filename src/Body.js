@@ -37,4 +37,4 @@ const Body = () => {
     </>
   );
 };
-export default Body;
+export default ;
