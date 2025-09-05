@@ -1,20 +1,26 @@
 import { ImageLink } from "./config";
 
-const RestaurantCard = ({ props }) => {
+const RestaurantCard = ({
+  cloudinaryImageId,
+  name,
+  avgRating,
+  cuisines,
+  costForTwo,
+}) => {
   return (
     <div className="restaurant-card">
-      <img src={ImageLink + props?.cloudinaryImageId} alt="" />
+      <img src={ImageLink + cloudinaryImageId} alt="" />
       <div className="card-body">
-        <h3>{props?.name}</h3>
-        <p>{props?.avgRating}</p>
+        <h3>{name}</h3>
+        <p>{avgRating}</p>
       </div>
       <div className="card-footer">
         <p>
-          {props?.cuisines[0].length > 2
-            ? props?.cuisines.slice(0, 2).join(", ") + "..."
-            : props?.cuisines.join(", ")}
+          {cuisines[0].length > 2
+            ? cuisines.slice(0, 2).join(", ") + "..."
+            : cuisines.join(", ")}
         </p>
-        <p>{props?.costForTwo}</p>
+        <p>{costForTwo}</p>
       </div>
     </div>
   );
