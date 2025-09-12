@@ -34,7 +34,8 @@ body {
 .Nav-Links > li {
   cursor: pointer;
 }
-.restaurant-card {
+.restaurant-card,
+.shimmerCards {
   width: 250px;
   height: 300px;
   padding: 5px;
@@ -47,7 +48,8 @@ body {
 .card-footer > p {
   font-size: smaller;
 }
-.restaurant-card > img {
+.restaurant-card > img,
+.shimmer_Img {
   width: 100%;
   height: 200px;
   border-radius: 20px;
@@ -61,6 +63,40 @@ body {
   align-items: center;
   padding: 0 10px;
   justify-content: space-between;
+}
+
+.shimmer_Img,
+.shimmer_body,
+.shimmer_footer {
+  background: linear-gradient(135deg, #cfceced0, #fafafa 50%, #cacaced0);
+  background-size: 300%;
+  background-position-x: 100%;
+  animation: shimmer 1s infinite alternate;
+}
+@keyframes shimmer {
+  to {
+    background-position-x: 0;
+  }
+}
+.shimmer_body,
+.shimmer_footer {
+  width: 50%;
+  height: 20px;
+  border-radius: 5px;
+}
+.shimmer_data {
+  display: flex;
+  height: 34%;
+  flex-direction: column;
+  padding: 0 5%;
+  justify-content: center;
+  gap: 20px;
+}
+.shimmer_footer {
+  width: 100%;
+}
+.shimmer_footer {
+  align-self: flex-end;
 }
 
 .body {

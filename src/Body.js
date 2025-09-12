@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
+import ShimmerUI from "./shimmer.js";
 
 const Body = () => {
   let [searchData, setSearchData] = useState([]);
@@ -49,7 +50,16 @@ const Body = () => {
       }
     }
   };
+
   const [searchTxt, setsearchTxt] = useState("");
+
+  if (searchData.length === 0) {
+    const shimmerCards = [];
+    for (let i = 0; i < 8; i++) {
+      shimmerCards.push(<ShimmerUI key={i} />);
+    }
+    return <div className="body">{shimmerCards}</div>;
+  }
   return (
     <>
       <input
