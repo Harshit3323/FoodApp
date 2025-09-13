@@ -5,6 +5,7 @@ import ShimmerUI from "./shimmer.js";
 const Body = () => {
   let [searchData, setSearchData] = useState([]);
   let originalDataRef = useRef([]);
+  let [count, setCount] = useState(0);
   const getData = async () => {
     try {
       const response = await fetch(
@@ -27,12 +28,23 @@ const Body = () => {
   useEffect(() => {
     getData();
   }, []);
-
+  const filterHandle = (count) => {
+    console.log(count);
+    if (count === 0) {
+      filterAction();
+      setCount(1);
+      return;
+    }
+    if (count === 1) {
+      resetData();
+      setCount(0);
+      return;
+    }
+  };
   const resetData = () => {
     setSearchData(originalDataRef.current);
-    console.log(originalDataRef.current);
   };
-  const filerAction = () => {
+  const filterAction = () => {
     const filterData = searchData.filter((i) => {
       return i.info.avgRating > 4;
     });
@@ -49,6 +61,7 @@ const Body = () => {
         alert("vroooo what u doinnn");
       }
     }
+    setCount(1);
   };
 
   const [searchTxt, setsearchTxt] = useState("");
@@ -58,34 +71,35 @@ const Body = () => {
     for (let i = 0; i < 8; i++) {
       shimmerCards.push(<ShimmerUI key={i} />);
     }
-    return <div className="body">{shimmerCards}</div>;
+    return <div className="cards">{shimmerCards}</div>;
   }
   return (
-    <>
-      <input
-        type="search"
-        placeholder="Search"
-        value={searchTxt}
-        onChange={(e) => setsearchTxt(e.target.value)}
-      />
-      <button onClick={() => searchHandel(searchTxt)}>search</button>
-      <button
-        onClick={() => {
-          // searchHandel(searchTxt, searchData);
-          filerAction();
-        }}
-      >
-        filter
-      </button>
-      <button onClick={() => resetData()}>clear</button>
-      <div className="body">
+    <div id="body">
+      <div className="search">
+        <input
+          type="search"
+          placeholder="Search"
+          value={searchTxt}
+          onChange={(e) => setsearchTxt(e.target.value)}
+        />
+        <button onClick={() => searchHandel(searchTxt)}>search</button>
+        <button
+          onClick={() => {
+            // searchHandel(searchTxt, searchData);
+            filterHandle(count);
+          }}
+        >
+          filter
+        </button>
+      </div>
+      <div className="cards">
         {searchData.map((data) => {
           return (
             <RestaurantCard {...data.info} key={data.info.id} role="link" />
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 export default Body;
