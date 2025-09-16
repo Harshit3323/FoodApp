@@ -4,12 +4,14 @@ import ShimmerUI from "./shimmer.js";
 
 const Body = () => {
   let [searchData, setSearchData] = useState([]);
+  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState();
   let originalDataRef = useRef([]);
-  let [count, setCount] = useState(0);
+  let [count, setCount] = useState(true);
   const getData = async () => {
     try {
       const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6539087&lng=77.2712102&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latitude}&lng=${longitude}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
       );
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
@@ -18,6 +20,7 @@ const Body = () => {
       setSearchData(
         resData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
       );
+      console.log(searchData);
       originalDataRef.current =
         resData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
     } catch (error) {
@@ -26,20 +29,23 @@ const Body = () => {
   };
 
   useEffect(() => {
-    getData();
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        console.log(position.coords);
+      },
+      (error) => error.message
+    );
   }, []);
+  useEffect(() => {
+    if (latitude != null && longitude != null) {
+      getData();
+    }
+  }, [longitude, latitude]);
+
   const filterHandle = (count) => {
-    console.log(count);
-    if (count === 0) {
-      filterAction();
-      setCount(1);
-      return;
-    }
-    if (count === 1) {
-      resetData();
-      setCount(0);
-      return;
-    }
+    count ? (filterAction(), setCount(false)) : (resetData(), setCount(true));
   };
   const resetData = () => {
     setSearchData(originalDataRef.current);
@@ -52,7 +58,7 @@ const Body = () => {
   };
   const searchHandel = (searchTxt) => {
     if (searchTxt) {
-      const filteredData = searchData.filter((i) =>
+      const filteredData = originalDataRef.current.filter((i) =>
         i.info.name.toLowerCase().includes(searchTxt)
       );
       if (filteredData.length > 0) {
@@ -61,17 +67,18 @@ const Body = () => {
         alert("vroooo what u doinnn");
       }
     }
-    setCount(1);
+    setsearchTxt("");
+    setCount(false);
   };
 
   const [searchTxt, setsearchTxt] = useState("");
 
   if (searchData.length === 0) {
     const shimmerCards = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 4; i++) {
       shimmerCards.push(<ShimmerUI key={i} />);
     }
-    return <div className="cards">{shimmerCards}</div>;
+    return <div className="cards shimmer_ui">{shimmerCards}</div>;
   }
   return (
     <div id="body">
@@ -80,7 +87,9 @@ const Body = () => {
           type="search"
           placeholder="Search"
           value={searchTxt}
-          onChange={(e) => setsearchTxt(e.target.value)}
+          onChange={(e) => {
+            setsearchTxt(e.target.value);
+          }}
         />
         <button onClick={() => searchHandel(searchTxt)}>search</button>
         <button
