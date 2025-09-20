@@ -16,8 +16,8 @@ const RestaurantCard = ({
       </div>
       <div className="card-footer">
         <p>
-          {cuisines[0].length > 2
-            ? cuisines.slice(0, 2).join(", ") + "..."
+          {cuisines.length > 2
+            ? cuisines.slice(0, 2).join(", ")
             : cuisines.join(", ")}
         </p>
         <p>{costForTwo}</p>

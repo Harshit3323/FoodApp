@@ -1,13 +1,45 @@
 import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
+import { Search, FunnelX, ChevronLeft, ChevronRight } from "lucide-react";
 import ShimmerUI from "./shimmer.js";
+import Types from "./type.js";
 
 const Body = () => {
-  let [searchData, setSearchData] = useState([]);
+  let [cardData, setCardData] = useState([]);
+  const scrollRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
+  let [typesData, setTypesData] = useState();
   let originalDataRef = useRef([]);
   let [count, setCount] = useState(true);
+
+  const scroll = (direction) => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const scrollAmount = 286;
+    const newScrollLeft =
+      direction === "left"
+        ? container.scrollLeft - scrollAmount
+        : container.scrollLeft + scrollAmount;
+
+    container.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
+  };
+
+  const updateScrollButtons = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    setCanScrollLeft(container.scrollLeft > 0);
+    setCanScrollRight(
+      container.scrollLeft < container.scrollWidth - container.clientWidth
+    );
+  };
   const getData = async () => {
     try {
       const response = await fetch(
@@ -17,12 +49,15 @@ const Body = () => {
         throw new Error(`Response status: ${response.status}`);
       }
       const resData = await response.json();
-      setSearchData(
-        resData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+
+      originalDataRef.current = resData.data;
+      setCardData(
+        originalDataRef.current.cards[4].card.card.gridElements.infoWithStyle
+          .restaurants
       );
-      console.log(searchData);
-      originalDataRef.current =
-        resData.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
+      setTypesData(
+        originalDataRef.current.cards[0].card.card.imageGridCards.info
+      );
     } catch (error) {
       console.log(error.message);
     }
@@ -33,28 +68,33 @@ const Body = () => {
       (position) => {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
-        console.log(position.coords);
       },
       (error) => error.message
     );
   }, []);
+
   useEffect(() => {
     if (latitude != null && longitude != null) {
-      getData();
+      getData(latitude, longitude);
     }
   }, [longitude, latitude]);
 
   const filterHandle = (count) => {
     count ? (filterAction(), setCount(false)) : (resetData(), setCount(true));
   };
+
   const resetData = () => {
-    setSearchData(originalDataRef.current);
+    setCardData(
+      originalDataRef.current.cards[4].card.card.gridElements.infoWithStyle
+        .restaurants
+    );
   };
+
   const filterAction = () => {
-    const filterData = searchData.filter((i) => {
+    const filterData = cardData.filter((i) => {
       return i.info.avgRating > 4;
     });
-    setSearchData(filterData);
+    setCardData(filterData);
   };
   const searchHandel = (searchTxt) => {
     if (searchTxt) {
@@ -62,7 +102,7 @@ const Body = () => {
         i.info.name.toLowerCase().includes(searchTxt)
       );
       if (filteredData.length > 0) {
-        setSearchData(filteredData);
+        setCardData(filteredData);
       } else {
         alert("vroooo what u doinnn");
       }
@@ -73,7 +113,7 @@ const Body = () => {
 
   const [searchTxt, setsearchTxt] = useState("");
 
-  if (searchData.length === 0) {
+  if (cardData.length === 0) {
     const shimmerCards = [];
     for (let i = 0; i < 4; i++) {
       shimmerCards.push(<ShimmerUI key={i} />);
@@ -91,22 +131,52 @@ const Body = () => {
             setsearchTxt(e.target.value);
           }}
         />
-        <button onClick={() => searchHandel(searchTxt)}>search</button>
+        <button onClick={() => searchHandel(searchTxt)}>
+          <Search size={20} />
+        </button>
         <button
           onClick={() => {
-            // searchHandel(searchTxt, searchData);
+            // searchHandel(searchTxt, cardData);
             filterHandle(count);
           }}
+          disabled={false}
         >
-          filter
+          <FunnelX size={20} />
         </button>
       </div>
+      <div className="carousel">
+        <div className="carousel_header">
+          <h2 className="carousel_heading">
+            {originalDataRef.current.cards[0].card.card.header.title}
+          </h2>
+          <div className="carousel-nav">
+            <button onClick={() => scroll("left")} disabled={!canScrollLeft}>
+              <ChevronLeft />
+            </button>
+            <button onClick={() => scroll("right")} disabled={!canScrollRight}>
+              <ChevronRight />
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="TypeShits Carousel_container"
+          ref={scrollRef}
+          onScroll={updateScrollButtons}
+        >
+          {typesData.map((data) => (
+            <Types {...data} key={data.id} />
+          ))}
+        </div>
+      </div>
+
+      <h2 className="heading">
+        {originalDataRef.current.cards[1].card.card.header.title}
+      </h2>
       <div className="cards">
-        {searchData.map((data) => {
-          return (
-            <RestaurantCard {...data.info} key={data.info.id} role="link" />
-          );
-        })}
+        {cardData.map((data) => (
+          <RestaurantCard {...data.info} key={data.info.id} role="link" />
+        ))}
       </div>
     </div>
   );
