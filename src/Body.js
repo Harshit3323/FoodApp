@@ -98,7 +98,7 @@ const Body = () => {
   };
   const searchHandel = (searchTxt) => {
     if (searchTxt) {
-      const filteredData = originalDataRef.current.filter((i) =>
+      const filteredData = cardData.filter((i) =>
         i.info.name.toLowerCase().includes(searchTxt)
       );
       if (filteredData.length > 0) {

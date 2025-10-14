@@ -12,7 +12,7 @@ const RestaurantCard = ({
       <img src={ImageLink + cloudinaryImageId} alt="" />
       <div className="card-body">
         <h3>{name}</h3>
-        <p>{avgRating}</p>
+        <p>{avgRating / 1}</p>
       </div>
       <div className="card-footer">
         <p>

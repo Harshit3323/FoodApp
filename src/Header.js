@@ -1,10 +1,11 @@
-import Logo from "url:../assets/Logo.png";
+const logo = require("../assets/logo.png");
 
 const Header = () => {
+  console.log(logo);
   return (
     <div className="Header">
       <a href="#" className="Logo">
-        <img src={Logo}></img>
+        <img src="/logo.png"></img>
       </a>
       <div className="NavBar">
         <ul className="Nav-Links">
