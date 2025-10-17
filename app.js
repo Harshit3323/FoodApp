@@ -1,34 +1,36 @@
 import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
-import Body from "./src/Body.js";
+import Home from "./src/Home.js";
+import Error from "./src/Error.js";
+import Categories from "./src/Categories.js";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+  useRouteError,
+} from "react-router";
+import { Component } from "lucide-react";
 
-// app layout = {
-//     navbar = {
-//         Logo
-//         Some Links
-//          Cart
-//     }
-//     Body = {
-//      restaurant Cards={
-//              Image
-//              name
-//              rating
-//              tags(cuisine, speciality)
-//              price range(optional)
-//      }
-//     }
-//      footer= {
-//          tbc
-//      }
-// }
 var count = 0;
 const App = () => {
   return (
     <>
-      <Header />
-      <Body />
+      <Home />
     </>
   );
 };
 
-ReactDom.createRoot(document.getElementById("root")).render(<App />);
+let appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/categories",
+    element: <Categories />,
+  },
+]);
+
+const root = ReactDom.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={appRouter} />);
