@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
 import Header from "./Header.js";
-import { getData, searchHandel, filterHandle } from "./functions.js";
+import { getData, searchHandel, filterHandle } from "./utils.js";
 import { Search, FunnelX, ChevronLeft, ChevronRight } from "lucide-react";
 import ShimmerUI from "./shimmer.js";
 import Types from "./type.js";
