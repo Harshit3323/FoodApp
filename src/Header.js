@@ -1,18 +1,19 @@
 import Logo from "url:../assets/logo.png";
+import { Link } from "react-router";
 
 const Header = () => {
   return (
     <div className="Header">
-      <a href="#" className="Logo">
+      <Link to="/" className="Logo">
         <img src={Logo} alt=";lkajsdf"></img>
-      </a>
+      </Link>
       <div className="NavBar">
         <ul className="Nav-Links">
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="categories">Categories</a>
+            <Link to="categories">Categories</Link>
           </li>
         </ul>
         <p>Cart</p>

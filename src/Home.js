@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
-import Header from "./Header.js";
 import { getData, searchHandel, filterHandle } from "./utils.js";
 import { Search, FunnelX, ChevronLeft, ChevronRight } from "lucide-react";
 import ShimmerUI from "./shimmer.js";
@@ -68,7 +67,6 @@ const Home = () => {
   }
   return (
     <>
-      <Header />
       <div id="body">
         <div className="search">
           <input

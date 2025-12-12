@@ -7,15 +7,14 @@ import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
-  useRouteError,
+  Outlet,
 } from "react-router";
-import { Component } from "lucide-react";
 
-var count = 0;
 const App = () => {
   return (
     <>
-      <Home />
+      <Header />
+      <Outlet />
     </>
   );
 };
@@ -23,12 +22,19 @@ const App = () => {
 let appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <App />,
     errorElement: <Error />,
-  },
-  {
-    path: "/categories",
-    element: <Categories />,
+    children: [
+      {
+        path: "/categories",
+        element: (
+          <h1>
+            <center>Categories!?</center>
+          </h1>
+        ),
+      },
+      { path: "/", element: <Home /> },
+    ],
   },
 ]);
 
