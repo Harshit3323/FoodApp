@@ -4,9 +4,7 @@ const Types = ({ imageId }) => {
   return (
     <>
       <div className="typeCard">
-        <a href="#">
-          <img src={TypeShits + imageId} />
-        </a>
+        <img src={TypeShits + imageId} />
       </div>
     </>
   );

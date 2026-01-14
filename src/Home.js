@@ -4,6 +4,7 @@ import { getData, searchHandel, filterHandle } from "./utils.js";
 import { Search, FunnelX, ChevronLeft, ChevronRight } from "lucide-react";
 import ShimmerUI from "./shimmer.js";
 import Types from "./type.js";
+import { Link } from "react-router";
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
@@ -32,7 +33,11 @@ const Home = () => {
       behavior: "smooth",
     });
   };
-
+  const extract = (link) => {
+    const url = new URL(link);
+    const collectionId = url.searchParams.get("collection_id");
+    return collectionId;
+  };
   const updateScrollButtons = () => {
     const container = scrollRef.current;
     if (!container) return;
@@ -57,7 +62,6 @@ const Home = () => {
       getData(latitude, longitude, setCardData, originalDataRef, setTypesData);
     }
   }, [longitude, latitude]);
-
   if (cardData.length === 0) {
     const shimmerCards = [];
     for (let i = 0; i < 4; i++) {
@@ -65,6 +69,8 @@ const Home = () => {
     }
     return <div className="cards shimmer_ui">{shimmerCards}</div>;
   }
+
+  console.log(extract(typesData[0].action.link));
   return (
     <>
       <div id="body">
@@ -130,7 +136,12 @@ const Home = () => {
             onScroll={updateScrollButtons}
           >
             {typesData.map((data) => (
-              <Types {...data} key={data.id} />
+              <Link
+                to={"/collection/" + extract(data.action.link)}
+                key={data.id}
+              >
+                <Types {...data} />
+              </Link>
             ))}
           </div>
         </div>

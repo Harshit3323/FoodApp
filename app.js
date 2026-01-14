@@ -2,7 +2,9 @@ import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
 import Home from "./src/Home.js";
 import Error from "./src/Error.js";
+import ResaturantMenu from "./src/RestaurantMenu.js";
 import Categories from "./src/Categories.js";
+import CategoryMenu from "./src/CategoryMenu.js";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,6 +36,7 @@ let appRouter = createBrowserRouter([
         ),
       },
       { path: "/", element: <Home /> },
+      { path: "/collection/:resId", element: <CategoryMenu /> },
     ],
   },
 ]);
