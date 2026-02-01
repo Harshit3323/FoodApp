@@ -29,11 +29,7 @@ let appRouter = createBrowserRouter([
     children: [
       {
         path: "/categories",
-        element: (
-          <h1>
-            <center>Categories!?</center>
-          </h1>
-        ),
+        element: <Categories name="HEllo" />,
       },
       { path: "/", element: <Home /> },
       { path: "/collection/:resId", element: <CategoryMenu /> },

@@ -7,4 +7,7 @@ build/
 .parcel-cache/
 
 map.js
-RestaurantMenu.js
+src/RestaurantMenu.js
+src/Categories.js
+src/about.js
+
