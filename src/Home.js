@@ -1,76 +1,45 @@
 import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
-import { getData, searchHandel, filterHandle } from "./utils.js";
-import { Search, FunnelX, ChevronLeft, ChevronRight } from "lucide-react";
+import { searchHandel, filterHandle } from "./utils.js";
+import { Search, FunnelX } from "lucide-react";
+import useRestaurantData from "../utils/useRestaurantData.js";
+import useLocation from "../utils/useLocation.js";
 import ShimmerUI from "./shimmer.js";
-import Types from "./type.js";
-import { Link } from "react-router";
+import Categories from "./categories.js";
 
 const Home = () => {
-  const [cardData, setCardData] = useState([]);
-  const scrollRef = useRef(null);
   const [searchTxt, setsearchTxt] = useState("");
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [longitude, setLongitude] = useState();
-  const [latitude, setLatitude] = useState();
-  const [typesData, setTypesData] = useState();
-  const originalDataRef = useRef([]);
   const [count, setCount] = useState(true);
+  const [cardData, setCardData] = useState([]);
+  const [typesData, setTypesData] = useState([]);
 
-  const scroll = (direction) => {
-    const container = scrollRef.current;
-    if (!container) return;
+  const { latitude, longitude } = useLocation();
 
-    const scrollAmount = 286;
-    const newScrollLeft =
-      direction === "left"
-        ? container.scrollLeft - scrollAmount
-        : container.scrollLeft + scrollAmount;
-
-    container.scrollTo({
-      left: newScrollLeft,
-      behavior: "smooth",
-    });
-  };
-  const extract = (link) => {
-    const url = new URL(link);
-    const collectionId = url.searchParams.get("collection_id");
-    return collectionId;
-  };
-  const updateScrollButtons = () => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    setCanScrollLeft(container.scrollLeft > 0);
-    setCanScrollRight(
-      container.scrollLeft < container.scrollWidth - container.clientWidth
-    );
-  };
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      },
-      (error) => error.message
-    );
-  }, []);
+  const resInfo = useRestaurantData(latitude, longitude);
 
   useEffect(() => {
-    if (latitude != null && longitude != null) {
-      getData(latitude, longitude, setCardData, originalDataRef, setTypesData);
+    if (resInfo) {
+      const restaurants =
+        resInfo?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
+      const categories = resInfo?.cards[0]?.card?.card?.imageGridCards?.info;
+      if (restaurants) setCardData(restaurants);
+      if (categories) setTypesData(categories);
     }
-  }, [longitude, latitude]);
-  if (cardData.length === 0) {
-    const shimmerCards = [];
-    for (let i = 0; i < 4; i++) {
-      shimmerCards.push(<ShimmerUI key={i} />);
-    }
-    return <div className="cards shimmer_ui">{shimmerCards}</div>;
+  }, [resInfo]);
+  console.log(resInfo);
+  if (!resInfo || cardData.length === 0) {
+    return (
+      <div className="cards shimmer_ui">
+        {Array(8)
+          .fill(0)
+          .map((_, i) => (
+            <ShimmerUI key={i} />
+          ))}
+      </div>
+    );
   }
 
-  console.log(extract(typesData[0].action.link));
   return (
     <>
       <div id="body">
@@ -90,7 +59,7 @@ const Home = () => {
                 setsearchTxt,
                 setCount,
                 cardData,
-                setCardData
+                setCardData,
               )
             }
           >
@@ -99,55 +68,17 @@ const Home = () => {
           <button
             type="button"
             onClick={() => {
-              filterHandle(
-                count,
-                setCount,
-                cardData,
-                setCardData,
-                originalDataRef
-              );
+              filterHandle(count, setCount, cardData, setCardData, resInfo);
             }}
             disabled={false}
           >
             <FunnelX size={20} />
           </button>
         </div>
-        <div className="carousel">
-          <div className="carousel_header">
-            <h2 className="carousel_heading">
-              {originalDataRef.current.cards[0].card.card.header.title}
-            </h2>
-            <div className="carousel-nav">
-              <button onClick={() => scroll("left")} disabled={!canScrollLeft}>
-                <ChevronLeft />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-              >
-                <ChevronRight />
-              </button>
-            </div>
-          </div>
 
-          <div
-            className="TypeShits Carousel_container"
-            ref={scrollRef}
-            onScroll={updateScrollButtons}
-          >
-            {typesData.map((data) => (
-              <Link
-                to={"/collection/" + extract(data.action.link)}
-                key={data.id}
-              >
-                <Types {...data} />
-              </Link>
-            ))}
-          </div>
-        </div>
-
+        <Categories data={typesData} />
         <h2 className="heading">
-          {originalDataRef.current.cards[1].card.card.header.title}
+          {resInfo?.cards?.[1]?.card?.card?.header?.title || "Top Restaurants"}
         </h2>
         <div className="cards">
           {cardData.map((data) => (

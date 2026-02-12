@@ -3,11 +3,11 @@ export const getData = async (
   long,
   setCardData,
   originalDataRef,
-  setTypesData
+  setTypesData,
 ) => {
   try {
     const response = await fetch(
-      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`,
     );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -17,10 +17,10 @@ export const getData = async (
     originalDataRef.current = resData.data;
     setCardData(
       originalDataRef.current.cards[4].card.card.gridElements.infoWithStyle
-        .restaurants
+        .restaurants,
     );
     setTypesData(
-      originalDataRef.current.cards[0].card.card.imageGridCards.info
+      originalDataRef.current.cards[0].card.card.imageGridCards.info,
     );
   } catch (error) {
     console.log(error.message);
@@ -32,11 +32,11 @@ export const searchHandel = (
   setsearchTxt,
   setCount,
   cardData,
-  setCardData
+  setCardData,
 ) => {
   if (searchTxt) {
     const filteredData = cardData.filter((i) =>
-      i.info.name.toLowerCase().includes(searchTxt)
+      i.info.name.toLowerCase().includes(searchTxt),
     );
     if (filteredData.length > 0) {
       setCardData(filteredData);
@@ -52,11 +52,11 @@ export const filterHandle = (
   setCount,
   cardData,
   setCardData,
-  originalDataRef
+  resInfo,
 ) => {
   count
     ? (filterAction(cardData, setCardData), setCount(false))
-    : (resetData(setCardData, originalDataRef), setCount(true));
+    : (resetData(setCardData, resInfo), setCount(true));
 };
 const filterAction = (cardData, setCardData) => {
   const filterData = cardData.filter((i) => {
@@ -64,9 +64,8 @@ const filterAction = (cardData, setCardData) => {
   });
   setCardData(filterData);
 };
-const resetData = (setCardData, originalDataRef) => {
+const resetData = (setCardData, resInfo) => {
   setCardData(
-    originalDataRef.current.cards[4].card.card.gridElements.infoWithStyle
-      .restaurants
+    resInfo?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
   );
 };
