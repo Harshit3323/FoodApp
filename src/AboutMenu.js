@@ -1,13 +1,6 @@
 import About from "./about.js";
 import React from "react";
-// const AboutMenu = () => {
-//   return (
-//     <>
-//       <About />
-//       <About />
-//     </>
-//   );
-// };
+``;
 class AboutMenu extends React.Component {
   constructor(props) {
     super(props);

@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestrauntCard.js";
 import { searchHandel, filterHandle } from "./utils.js";
 import { Search, FunnelX } from "lucide-react";
-import useRestaurantData from "../utils/useRestaurantData.js";
-import useLocation from "../utils/useLocation.js";
+import useRestaurantData from "./utils/useRestaurantData.js";
+import useLocation from "./utils/useLocation.js";
 import ShimmerUI from "./shimmer.js";
 import Categories from "./categories.js";
+import useOnlineStatus from "./utils/useOnlineStatus.js";
 
 const Home = () => {
   const [searchTxt, setsearchTxt] = useState("");
@@ -16,7 +17,7 @@ const Home = () => {
   const { latitude, longitude } = useLocation();
 
   const resInfo = useRestaurantData(latitude, longitude);
-
+  const onlineStatus = useOnlineStatus();
   useEffect(() => {
     if (resInfo) {
       const restaurants =
@@ -27,7 +28,15 @@ const Home = () => {
       if (categories) setTypesData(categories);
     }
   }, [resInfo]);
-  console.log(resInfo);
+  if (!onlineStatus) {
+    return (
+      <div>
+        <center>
+          <h3>Looks Like Your Offline</h3>
+        </center>
+      </div>
+    );
+  }
   if (!resInfo || cardData.length === 0) {
     return (
       <div className="cards shimmer_ui">
