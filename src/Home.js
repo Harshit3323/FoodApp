@@ -86,12 +86,17 @@ const Home = () => {
         </div>
 
         <Categories data={typesData} />
-        <h2 className="heading">
+        <h2 className="font-black text-2xl">
           {resInfo?.cards?.[1]?.card?.card?.header?.title || "Top Restaurants"}
         </h2>
-        <div className="cards">
+        <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
           {cardData.map((data) => (
-            <RestaurantCard {...data.info} key={data.info.id} role="link" />
+            <RestaurantCard
+              {...data.info}
+              key={data.info.id}
+              role="link"
+              className=""
+            />
           ))}
         </div>
       </div>

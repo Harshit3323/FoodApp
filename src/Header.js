@@ -3,20 +3,22 @@ import { Link } from "react-router";
 
 const Header = () => {
   return (
-    <div className="Header">
-      <Link to="/" className="Logo">
-        <img src={Logo} alt=";lkajsdf"></img>
+    <div className="flex justify-between mx-25 my-6 items-center">
+      <Link to="/" className="">
+        <img src={Logo} alt=";lkajsdf" className="w-25"></img>
       </Link>
       <div className="NavBar">
-        <ul className="Nav-Links">
+        <ul className="flex gap-8 p-4 font-bold ">
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="categories">Categories</Link>
           </li>
+          <li>
+            <Link to="/">Cart</Link>
+          </li>
         </ul>
-        <p>Cart</p>
       </div>
     </div>
   );

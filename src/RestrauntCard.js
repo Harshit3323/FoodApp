@@ -8,8 +8,12 @@ const RestaurantCard = ({
   costForTwo,
 }) => {
   return (
-    <div className="restaurant-card">
-      <img src={ImageLink + cloudinaryImageId} alt="" />
+    <div className="w-62.5 h-80">
+      <img
+        src={ImageLink + cloudinaryImageId}
+        alt=""
+        className="w-full h-50 rounded-xl object-cover object-[50%_20%] "
+      />
       <div className="card-body">
         <h3>{name}</h3>
         <p>{avgRating / 1}</p>
