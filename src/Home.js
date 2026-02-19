@@ -37,9 +37,10 @@ const Home = () => {
       </div>
     );
   }
+  // !resInfo || cardData.length === 0
   if (!resInfo || cardData.length === 0) {
     return (
-      <div className="cards shimmer_ui">
+      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
         {Array(8)
           .fill(0)
           .map((_, i) => (

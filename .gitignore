@@ -7,9 +7,5 @@ build/
 .parcel-cache/
 
 map.js
-src/RestaurantMenu.js
-src/Categories.js
-src/about.js
-style.css
 parcel-bundle-reports/default.html
 tempCodeRunnerFile.js

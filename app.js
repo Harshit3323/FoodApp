@@ -5,12 +5,7 @@ import Error from "./src/Error.js";
 import RestaurantMenu from "./src/RestaurantMenu.js";
 import Categories from "./src/AboutMenu.js";
 import CategoryMenu from "./src/CategoryMenu.js";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-  Outlet,
-} from "react-router";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 
 const App = () => {
   return (
