@@ -38,10 +38,10 @@ const Categories = ({ data }) => {
     return collectionId;
   };
   return (
-    <div className="carousel">
-      <div className="carousel_header">
-        <h2 className="font-black text-2xl~">What's on your mind?</h2>
-        <div className="carousel-nav">
+    <div className="">
+      <div className="flex justify-between mx-4">
+        <h2 className="font-black text-2xl">What's on your mind?</h2>
+        <div className="">
           <button onClick={() => scroll("left")} disabled={!canScrollLeft}>
             <ChevronLeft />
           </button>
@@ -52,7 +52,7 @@ const Categories = ({ data }) => {
       </div>
 
       <div
-        className="Carousel_container"
+        className="overflow-hidden"
         ref={scrollRef}
         onScroll={updateScrollButtons}
         style={{ display: "flex", overflowX: "auto", scrollbarWidth: "none" }}

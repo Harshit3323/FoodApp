@@ -17,11 +17,20 @@ const CategoryMenu = () => {
   useEffect(() => {
     fetchCards();
   }, []);
-  if (resData === null) return <Shimmer />;
+  if (resData === null)
+    return (
+      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
+        {Array(8)
+          .fill(0)
+          .map((_, i) => (
+            <Shimmer key={i} />
+          ))}
+      </div>
+    );
 
   return (
     <>
-      <div className="cards">
+      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-x-4">
         {resData.slice(2).map((item) => (
           <RestaurantCard
             {...item.card.card.info}

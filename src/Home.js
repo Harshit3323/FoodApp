@@ -53,10 +53,11 @@ const Home = () => {
   return (
     <>
       <div id="body">
-        <div className="search">
+        <div className="flex justify-end gap-2 m-6">
           <input
             type="search"
             placeholder="Search"
+            className="w-50 h-3.75 p-4 text-md cursor-auto border-2 border-solid rounded-3xl border-[#504f4f]"
             value={searchTxt}
             onChange={(e) => {
               setsearchTxt(e.target.value);
@@ -87,10 +88,10 @@ const Home = () => {
         </div>
 
         <Categories data={typesData} />
-        <h2 className="font-black text-2xl">
+        <h2 className="font-black text-2xl mx-4">
           {resInfo?.cards?.[1]?.card?.card?.header?.title || "Top Restaurants"}
         </h2>
-        <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
+        <div className="flex flex-wrap gap-3 my-10 mx-10">
           {cardData.map((data) => (
             <RestaurantCard
               {...data.info}

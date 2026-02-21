@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const Header = () => {
   return (
-    <div className="flex justify-between mx-25 my-6 items-center">
+    <div className="flex justify-between px-25 py-6 items-center sticky top-0 bg-white/75 ">
       <Link to="/" className="">
         <img src={Logo} alt=";lkajsdf" className="w-25"></img>
       </Link>
@@ -17,6 +17,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/">Cart</Link>
+          </li>
+          <li>
+            <button className="bg-">Log In</button>
           </li>
         </ul>
       </div>

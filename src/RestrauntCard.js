@@ -14,11 +14,11 @@ const RestaurantCard = ({
         alt=""
         className="w-full h-50 rounded-xl object-cover object-[50%_20%] "
       />
-      <div className="card-body">
-        <h3>{name}</h3>
+      <div className="flex justify-between px-1.5 py-3">
+        <h3 className="font-black text-xl">{name}</h3>
         <p>{avgRating / 1}</p>
       </div>
-      <div className="card-footer">
+      <div className="flex justify-between px-1.5">
         <p>
           {cuisines.length > 2
             ? cuisines.slice(0, 2).join(", ")
