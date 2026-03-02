@@ -8,7 +8,7 @@ const RestaurantCard = ({
   costForTwo,
 }) => {
   return (
-    <div className="w-62.5 h-80">
+    <div className="w-62.5 h-80 rounded-xl cursor-pointer hover:bg-[#cfceced0] ">
       <img
         src={ImageLink + cloudinaryImageId}
         alt=""
@@ -29,5 +29,16 @@ const RestaurantCard = ({
     </div>
   );
 };
-
+export const withRibbon = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="absolute text-white p-2 mx-2 bg-[#79d622]/80 rounded-lg ">
+          Open
+        </label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
 export default RestaurantCard;

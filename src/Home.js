@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from "react";
-import RestaurantCard from "./RestrauntCard.js";
+import { useState, useEffect } from "react";
+import RestaurantCard, { withRibbon } from "./RestrauntCard.js";
 import { searchHandel, filterHandle } from "./utils.js";
-import { Search, FunnelX } from "lucide-react";
+import { Search, FunnelX, Link } from "lucide-react";
 import useRestaurantData from "./utils/useRestaurantData.js";
 import useLocation from "./utils/useLocation.js";
 import ShimmerUI from "./shimmer.js";
 import Categories from "./categories.js";
 import useOnlineStatus from "./utils/useOnlineStatus.js";
-
+import { Link } from "react-router";
 const Home = () => {
   const [searchTxt, setsearchTxt] = useState("");
   const [count, setCount] = useState(true);
@@ -18,6 +18,8 @@ const Home = () => {
 
   const resInfo = useRestaurantData(latitude, longitude);
   const onlineStatus = useOnlineStatus();
+
+  const RestaurantCardOpen = withRibbon(RestaurantCard);
   useEffect(() => {
     if (resInfo) {
       const restaurants =
@@ -40,8 +42,8 @@ const Home = () => {
   // !resInfo || cardData.length === 0
   if (!resInfo || cardData.length === 0) {
     return (
-      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
-        {Array(8)
+      <div className="flex flex-wrap gap-3 my-10 mx-10">
+        {Array(14)
           .fill(0)
           .map((_, i) => (
             <ShimmerUI key={i} />
@@ -52,12 +54,12 @@ const Home = () => {
 
   return (
     <>
-      <div id="body">
+      <div className="bg-mint-500 min-h-screen ">
         <div className="flex justify-end gap-2 m-6">
           <input
             type="search"
             placeholder="Search"
-            className="w-50 h-3.75 p-4 text-md cursor-auto border-2 border-solid rounded-3xl border-[#504f4f]"
+            className="tag "
             value={searchTxt}
             onChange={(e) => {
               setsearchTxt(e.target.value);
@@ -92,14 +94,17 @@ const Home = () => {
           {resInfo?.cards?.[1]?.card?.card?.header?.title || "Top Restaurants"}
         </h2>
         <div className="flex flex-wrap gap-3 my-10 mx-10">
-          {cardData.map((data) => (
-            <RestaurantCard
-              {...data.info}
-              key={data.info.id}
-              role="link"
-              className=""
-            />
-          ))}
+          {cardData.map((data) =>
+            data.info.isOpen ? (
+              <Link to={"/restaurants/" + data.info.id} key={data.info.id}>
+                <RestaurantCardOpen {...data.info} role="link" />
+              </Link>
+            ) : (
+              <Link to={"/restaurants/" + data.info.id} key={data.info.id}>
+                <RestaurantCard {...data.info} role="link" />
+              </Link>
+            ),
+          )}
         </div>
       </div>
     </>

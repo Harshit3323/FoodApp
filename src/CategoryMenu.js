@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ImageLink } from "./config";
 import RestaurantCard from "./RestrauntCard.js";
 import Shimmer from "./shimmer.js";
 import { useParams } from "react-router";
+import { Link } from "react-router";
 const CategoryMenu = () => {
   const [resData, setResData] = useState(null);
 
@@ -19,23 +19,24 @@ const CategoryMenu = () => {
   }, []);
   if (resData === null)
     return (
-      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-4">
-        {Array(8)
+      <div className="flex flex-wrap gap-3 my-10 mx-10">
+        {Array(14)
           .fill(0)
           .map((_, i) => (
             <Shimmer key={i} />
           ))}
       </div>
     );
-
   return (
     <>
-      <div className="grid grid-cols-4 justify-items-center my-3 mx-5 gap-x-4">
-        {resData.slice(2).map((item) => (
-          <RestaurantCard
-            {...item.card.card.info}
+      <div className="flex flex-wrap gap-3 my-10 mx-10">
+        {resData.map((item) => (
+          <Link
             key={item.card.card.info.id}
-          />
+            to={"/restaurants/" + item.card.card.info.id}
+          >
+            <RestaurantCard {...item.card.card.info} role="link" />
+          </Link>
         ))}
       </div>
     </>

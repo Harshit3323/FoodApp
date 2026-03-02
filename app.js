@@ -2,11 +2,11 @@ import ReactDom from "react-dom/client";
 import Header from "./src/Header.js";
 import Home from "./src/Home.js";
 import Error from "./src/Error.js";
-import RestaurantMenu from "./src/RestaurantMenu.js";
-import Categories from "./src/AboutMenu.js";
-import CategoryMenu from "./src/CategoryMenu.js";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
-
+import { Suspense, lazy } from "react";
+const RestaurantMenu = lazy(() => import("./src/RestaurantMenu.js"));
+const CategoryMenu = lazy(() => import("./src/CategoryMenu.js"));
+const About = lazy(() => import("./src/AboutMenu.js"));
 const App = () => {
   return (
     <>
@@ -24,11 +24,26 @@ let appRouter = createBrowserRouter([
     children: [
       {
         path: "/categories",
-        element: <Categories name="HEllo" />,
+        element: <About />,
       },
       { path: "/", element: <Home /> },
-      { path: "/collection/:resId", element: <CategoryMenu /> },
-      { path: "/restaurants/", element: <RestaurantMenu /> },
+      {
+        path: "/collection/:resId",
+        element: (
+          <Suspense>
+            <CategoryMenu />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/restaurants/:resId",
+        element: (
+          <Suspense>
+            {" "}
+            <RestaurantMenu />{" "}
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);

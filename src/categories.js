@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router"; // Ensure Link is imported
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Types from "./type";

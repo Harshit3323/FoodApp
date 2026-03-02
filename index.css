@@ -1,2 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Sora:wght@100..800&display=swap");
 @import "tailwindcss";
+@theme {
+  --animate-shimmer: shimmer 1s infinite alternate;
+  ----color-mint-500: oklch(0.72 0.11 178);
+  @keyframes shimmer {
+    to {
+      background-position-x: 0;
+    }
+  }
+}
+
+@layer components {
+  .shimmer {
+    background: linear-gradient(135deg, #cfceced0, #fafafa 50%, #cacaced0);
+    background-size: 300%;
+    background-position-x: 100%;
+    animation: var(--animate-shimmer);
+  }
+  .tag {
+    @apply w-50 h-3.75 p-4 text-base cursor-auto border-2 border-solid rounded-3xl border-[#504f4f];
+  }
+}
