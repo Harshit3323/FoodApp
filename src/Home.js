@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import RestaurantCard, { withRibbon } from "./RestrauntCard.js";
 import { searchHandel, filterHandle } from "./utils.js";
 import { Search, FunnelX, Link } from "lucide-react";
@@ -8,6 +8,7 @@ import ShimmerUI from "./shimmer.js";
 import Categories from "./categories.js";
 import useOnlineStatus from "./utils/useOnlineStatus.js";
 import { Link } from "react-router";
+import UserInfo from "./utils/userInfo";
 const Home = () => {
   const [searchTxt, setsearchTxt] = useState("");
   const [count, setCount] = useState(true);
@@ -18,7 +19,7 @@ const Home = () => {
 
   const resInfo = useRestaurantData(latitude, longitude);
   const onlineStatus = useOnlineStatus();
-
+  const { setCurrentUser } = useContext(UserInfo);
   const RestaurantCardOpen = withRibbon(RestaurantCard);
   useEffect(() => {
     if (resInfo) {
@@ -65,6 +66,14 @@ const Home = () => {
               setsearchTxt(e.target.value);
             }}
           />
+          {/* <input
+            type="search"
+            placeholder="asd"
+            className="tag "
+            onChange={(e) => {
+              setCurrentUser(e.target.value);
+            }}
+          /> */}
           <button
             onClick={() =>
               searchHandel(

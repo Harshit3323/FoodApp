@@ -8,7 +8,7 @@ const RestaurantCard = ({
   costForTwo,
 }) => {
   return (
-    <div className="w-62.5 h-80 rounded-xl cursor-pointer hover:bg-[#cfceced0] ">
+    <div className="w-62.5 h-80 rounded-xl cursor-pointer hover:bg-[#cfceced0] my-5">
       <img
         src={ImageLink + cloudinaryImageId}
         alt=""
@@ -16,7 +16,7 @@ const RestaurantCard = ({
       />
       <div className="flex justify-between px-1.5 py-3">
         <h3 className="font-black text-xl">{name}</h3>
-        <p>{avgRating / 1}</p>
+        <p>{avgRating}</p>
       </div>
       <div className="flex justify-between px-1.5">
         <p>

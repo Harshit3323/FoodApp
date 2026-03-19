@@ -60,7 +60,7 @@ const ResaturantMenu = () => {
               {...i.card.card}
               collapse={index == collapseIndex ? true : false}
               setCollapseIndex={() =>
-                setCollapseIndex(collapseIndex === index ? -1 : index)
+                setCollapseIndex(collapseIndex === index ? null : index)
               }
             />
           );

@@ -10,3 +10,9 @@ map.js
 parcel-bundle-reports/default.html
 tempCodeRunnerFile.js
 menu.js
+coverage
+sum.js
+__tests__
+jest.config.ts
+babel.config.js
+.parcelrc

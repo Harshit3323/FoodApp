@@ -3,15 +3,27 @@ import Header from "./src/Header.js";
 import Home from "./src/Home.js";
 import Error from "./src/Error.js";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
+import UserInfo from "./src/utils/userInfo.js";
+import { Provider } from "react-redux";
+import appStore from "./src/utils/appStore.js";
 const RestaurantMenu = lazy(() => import("./src/RestaurantMenu.js"));
 const CategoryMenu = lazy(() => import("./src/CategoryMenu.js"));
 const About = lazy(() => import("./src/AboutMenu.js"));
+const Cart = lazy(() => import("./src/Cart.js"));
 const App = () => {
+  const [currentUser, setCurrentUser] = useState();
+  useEffect(() => {
+    setCurrentUser("Harshit");
+  }, []);
   return (
     <>
-      <Header />
-      <Outlet />
+      <Provider store={appStore}>
+        <UserInfo value={{ name: currentUser, setCurrentUser }}>
+          <Header />
+          <Outlet />
+        </UserInfo>
+      </Provider>
     </>
   );
 };
@@ -41,6 +53,14 @@ let appRouter = createBrowserRouter([
           <Suspense>
             {" "}
             <RestaurantMenu />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense>
+            <Cart />
           </Suspense>
         ),
       },
