@@ -11,8 +11,5 @@ parcel-bundle-reports/default.html
 tempCodeRunnerFile.js
 menu.js
 coverage
+src/__tests__/sum.test.js
 sum.js
-__tests__
-jest.config.ts
-babel.config.js
-.parcelrc

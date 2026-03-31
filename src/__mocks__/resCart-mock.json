@@ -1,0 +1,91 @@
+{
+  "@type": "type.googleapis.com/swiggy.presentation.food.v2.Restaurant",
+  "info": {
+    "id": "872946",
+    "name": "The Belgian Waffle Co.",
+    "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/16/fa421693-1e37-454f-80fa-83840f1d5018_872946.jpg",
+    "locality": "Block 11",
+    "areaName": "East Patel Nagar",
+    "costForTwo": "₹200 for two",
+    "cuisines": ["Waffle", "Desserts", "Ice Cream", "Beverages"],
+    "avgRating": 4.6,
+    "veg": true,
+    "parentId": "2233",
+    "avgRatingString": "4.6",
+    "totalRatingsString": "1.3K+",
+    "sla": {
+      "deliveryTime": 21,
+      "lastMileTravel": 1,
+      "serviceability": "SERVICEABLE",
+      "slaString": "20-25 mins",
+      "lastMileTravelString": "1.0 km",
+      "iconType": "ICON_TYPE_EMPTY"
+    },
+    "availability": {
+      "nextCloseTime": "2026-03-26 04:00:00",
+      "opened": true
+    },
+    "badges": {
+      "imageBadges": [
+        {
+          "imageId": "android/static-assets/icons/big_rx.png",
+          "description": "bolt!"
+        }
+      ]
+    },
+    "isOpen": false,
+    "type": "F",
+    "badgesV2": {
+      "entityBadges": {
+        "imageBased": {
+          "badgeObject": [
+            {
+              "attributes": {
+                "description": "bolt!",
+                "imageId": "android/static-assets/icons/big_rx.png"
+              }
+            }
+          ]
+        },
+        "textBased": {},
+        "textExtendedBadges": {}
+      }
+    },
+    "aggregatedDiscountInfoV3": {
+      "header": "20% OFF",
+      "subHeader": "UPTO ₹50"
+    },
+    "orderabilityCommunication": {
+      "title": {},
+      "subTitle": {},
+      "message": {},
+      "customIcon": {}
+    },
+    "differentiatedUi": {
+      "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+      "differentiatedUiMediaDetails": {
+        "mediaType": "ADS_MEDIA_ENUM_IMAGE",
+        "lottie": {},
+        "video": {}
+      }
+    },
+    "reviewsSummary": {},
+    "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+    "restaurantOfferPresentationInfo": {},
+    "externalRatings": {
+      "aggregatedRating": {
+        "rating": "--"
+      }
+    },
+    "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+  },
+  "analytics": {
+    "context": "seo-data-53a372b2-78cd-4e7f-b869-7b761ed9fdef"
+  },
+  "cta": {
+    "link": "https://www.swiggy.com/city/delhi/the-belgian-waffle-co-block-11-east-patel-nagar-rest872946",
+    "text": "RESTAURANT_MENU",
+    "type": "WEBLINK"
+  },
+  "widgetId": "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo"
+}
